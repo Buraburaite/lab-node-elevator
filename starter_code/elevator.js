@@ -3,22 +3,40 @@ class Elevator {
     this.floor      = 0;
     this.MAXFLOOR   = 10;
     this.requests   = [];
+    this.direction  = 'rest';
   }
 
+
   start() {
-    let updater = setInterval(update, 1000);
+    this.updater = setInterval(this.update(), 1000);
   }
   stop() {
-    clearInterval(updater);
+    clearInterval(this.updater);
   }
-  update() { }
+  update() {
+    this.log();
+  }
   _passengersEnter() { }
   _passengersLeave() { }
-  floorUp() { }
-  floorDown() { }
+  floorUp() {
+    if (this.floor < this.MAXFLOOR) {
+      this.direction = 'up';
+      this.floor++;
+    }
+    this.log();
+  }
+  floorDown() {
+    if (this.floor > 0) {
+      this.direction = 'down';
+      this.floor--;
+    }
+    this.log();
+  }
   call() { }
   log() {
-    console.log('Direction: up | Floor: 0');
+    console.log(`
+      Direction: ${this.direction} | Floor: ${this.floor}
+      `);
   }
 }
 
