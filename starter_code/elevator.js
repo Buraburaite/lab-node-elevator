@@ -37,8 +37,8 @@ class Elevator {
 
   update() {
     console.log('update', this.requests);
-    if (this.requests[0]) {
-      if (this.requests.includes(this.floor)) {
+    if (this.requests.length) {
+      if (this.requests.includes(this.floor)) { //Why is not getting here?
         console.log('here');
         this._passengersLeave(this.floor);
         this._passengersEnter(this.floor);
@@ -112,14 +112,12 @@ class Elevator {
     if (!this.requests[0]) {
       this.start();
     }
-
+    
     this.waitingList.push(person);
-    if (!this.requests.includes(person.destinationFloor)) {
-      this.requests.push(person.destinationFloor);
-      this.requests.sort();
-      if (this.direction === 'up') {
-        this.requests.reverse();
-      }
+    this.requests.push(person.destinationFloor);
+    this.requests.sort();
+    if (this.direction === 'up') {
+      this.requests.reverse();
     }
 
   }
